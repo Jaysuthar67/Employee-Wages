@@ -1,36 +1,26 @@
 package Employee;
 
 public class Employee {
-    String First_Name;
-    String Last_Name;
-    long mobile_no;
-    double wadge;
-    int workingHour;
-    boolean isStudent;
+    private String Full_Name;
+    private long mobile_no;
+    private double wage;
+    private int workingHour;
+    private boolean isStudent;
 
-    public Employee(String first_Name, String last_Name, long mobile_no, double wadge, int workingHour, boolean isStudent) {
-        First_Name = first_Name;
-        Last_Name = last_Name;
+    public Employee(String full_Name, long mobile_no, double wage, int workingHour, boolean isStudent) {
+        Full_Name = full_Name;
         this.mobile_no = mobile_no;
-        this.wadge = wadge;
+        this.wage = wage;
         this.workingHour = workingHour;
         this.isStudent = isStudent;
     }
 
-    public String getFirst_Name() {
-        return First_Name;
+    public String getFull_Name() {
+        return Full_Name;
     }
 
-    public void setFirst_Name(String first_Name) {
-        First_Name = first_Name;
-    }
-
-    public String getLast_Name() {
-        return Last_Name;
-    }
-
-    public void setLast_Name(String last_Name) {
-        Last_Name = last_Name;
+    public void setFull_Name(String full_Name) {
+        Full_Name = full_Name;
     }
 
     public long getMobile_no() {
@@ -41,12 +31,12 @@ public class Employee {
         this.mobile_no = mobile_no;
     }
 
-    public double getWadge() {
-        return wadge;
+    public double getWage() {
+        return wage;
     }
 
-    public void setWadge(double wadge) {
-        this.wadge = wadge;
+    public void setWage(double wage) {
+        this.wage = wage;
     }
 
     public int getWorkingHour() {
@@ -64,4 +54,5 @@ public class Employee {
     public void setStudent(boolean student) {
         isStudent = student;
     }
+
 }
