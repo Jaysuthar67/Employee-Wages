@@ -25,19 +25,18 @@ public class Main {
      * Create <b>Testing Data</b>
      */
     private static void temp() {
-        allEMP.add(new Employee("A", 12, 100, 15000, false));
-        allEMP.add(new Employee("B", 123, 200, 10000, true));
-        allEMP.add(new Employee("C", 1234, 300, 5000, true));
-        allEMP.add(new Employee("D", 1235, 50, 100, false));
-        allEMP.add(new Employee("E", 12345, 500, 1540, false));
+        allEMP.add(new Employee("A", 12, 15000, false));
+        allEMP.add(new Employee("B", 123, 10000, true));
+        allEMP.add(new Employee("C", 1234, 5000, true));
+        allEMP.add(new Employee("D", 1235, 100, false));
+        allEMP.add(new Employee("E", 12345, 1540, false));
+//        allEMP.add(new Employee("A", 10, 20, false));
+//        allEMP.add(new Employee("B", 10, 20, false));
+//        allEMP.add(new Employee("C", 10, 20, false));
+//        allEMP.add(new Employee("D", 10, 20, false));
+//        allEMP.add(new Employee("E", 10, 20, false));
     }
-//    private static void temp() {
-//        allEMP.add(new Employee("A", 12, 10, 10, false));
-//        allEMP.add(new Employee("A", 12, 10, 10, false));
-//        allEMP.add(new Employee("A", 12, 10, 10, false));
-//        allEMP.add(new Employee("A", 12, 10, 10, false));
-//        allEMP.add(new Employee("A", 12, 10, 10, false));
-//    }
+
 
     static void Home() {
         System.out.println("===== Employee Wages Calculator =====");
@@ -64,7 +63,7 @@ public class Main {
             System.out.printf(" Please Enter Manager Password >");
             inPassword = scanner.nextLine().trim();
         }
-        if (inPassword.equals(StaticProperties.MANAGER_PASSWORD) || PasswordValid) {
+        if (inPassword.equals(SP.MANAGER_PASSWORD) || PasswordValid) {
             System.out.println("\t 1. Create New Employee");
             System.out.println("\t 2. View Employee");
             System.out.println("\t 3. Edit Employee");
@@ -238,10 +237,10 @@ public class Main {
     }
 
     private static void MaxWage() {
-        double max = allEMP.get(0).getWage();
+        double max = allEMP.get(0).totalWage();
         int maxIdx = 0;
         for (int i = 0; i < allEMP.size(); i++) {
-            double currentWage = allEMP.get(i).getWage();
+            double currentWage = allEMP.get(i).totalWage();
             if (currentWage > max) {
                 max = currentWage;
                 maxIdx = i;
@@ -251,10 +250,10 @@ public class Main {
     }
 
     private static void MinWage() {
-        double min = allEMP.get(0).getWage();
+        double min = allEMP.get(0).totalWage();
         int minIdx = 0;
         for (int i = 0; i < allEMP.size(); i++) {
-            double currentWage = allEMP.get(i).getWage();
+            double currentWage = allEMP.get(i).totalWage();
             if (currentWage < min) {
                 min = currentWage;
                 minIdx = i;
@@ -269,10 +268,10 @@ public class Main {
         ArrayList<String[]> newList = new ArrayList<>();
         for (int i = 0; i < allEMP.size(); i++) {
             Employee e = allEMP.get(i);
-            String[] str = {"" + i, "" + e.getFull_Name(), "" + e.getMobile_no(), "" + e.getWage(), "" + e.getWorkingHour(), "" + e.isStudent(), "" + e.totalWage(), "" + e.taxSlot(), "" + e.taxAmount(), "" + e.netPay()};
+            String[] str = {"" + i, "" + e.getFull_Name(), "" + e.getMobile_no(), "" + e.getWorkingHour(), "" + e.isStudent(), "" + e.totalWage(), "" + e.taxSlot(), "" + e.taxAmount(), "" + e.netPay()};
             newList.add(str);
         }
-        printTable(StaticProperties.HEADERS_BASIC, newList.toArray(String[][]::new));
+        printTable(SP.HEADERS, newList.toArray(String[][]::new));
         ManagerHome(true);
     }
 
@@ -288,14 +287,13 @@ public class Main {
                 {"" + empID,
                         "" + allEMP.get(empID).getFull_Name(),
                         "" + allEMP.get(empID).getMobile_no(),
-                        "" + allEMP.get(empID).getWage(),
                         "" + allEMP.get(empID).getWorkingHour(),
                         "" + allEMP.get(empID).isStudent(),
                         "" + allEMP.get(empID).totalWage(),
                         "" + allEMP.get(empID).taxSlot(),
                         "" + allEMP.get(empID).taxAmount(),
                         "" + allEMP.get(empID).netPay()}};
-        printTable(StaticProperties.HEADERS_BASIC, strAry);
+        printTable(SP.HEADERS, strAry);
         System.out.println("EDIT -> ");
 
         System.out.printf("Enter Full Name (Default: " + allEMP.get(empID).getFull_Name() + " )> ");
@@ -308,9 +306,6 @@ public class Main {
         Long mobile = Long.parseLong(scanner.nextLine());
         if (mobile != null && mobile != 0) allEMP.get(empID).setMobile_no(mobile);
 
-        System.out.printf("Enter Wage (Default: " + allEMP.get(empID).getWage() + " ) > ");
-        Double wage = Double.parseDouble(scanner.nextLine());
-        if (wage != null && wage != 0) allEMP.get(empID).setWage(wage);
 
         System.out.printf("Enter Worked Hours (Default: " + allEMP.get(empID).getWorkingHour() + " ) > ");
         Integer workingHour = Integer.parseInt(scanner.nextLine());
@@ -325,14 +320,13 @@ public class Main {
                 {"" + empID,
                         "" + allEMP.get(empID).getFull_Name(),
                         "" + allEMP.get(empID).getMobile_no(),
-                        "" + allEMP.get(empID).getWage(),
                         "" + allEMP.get(empID).getWorkingHour(),
                         "" + allEMP.get(empID).isStudent(),
                         "" + allEMP.get(empID).totalWage(),
                         "" + allEMP.get(empID).taxSlot(),
                         "" + allEMP.get(empID).taxAmount(),
                         "" + allEMP.get(empID).netPay()}};
-        printTable(StaticProperties.HEADERS_BASIC, strAry);
+        printTable(SP.HEADERS, strAry);
         ManagerHome(true);
     }
 
@@ -341,19 +335,18 @@ public class Main {
         String[][] strAry = {{"" + empID,
                 "" + e.getFull_Name(),
                 "" + e.getMobile_no(),
-                "" + e.getWage(),
                 "" + e.getWorkingHour(),
                 "" + e.isStudent(),
                 "" + e.totalWage(),
                 "" + e.taxSlot(),
                 "" + e.taxAmount(),
                 "" + e.netPay()}};
-        printTable(StaticProperties.HEADERS_BASIC, strAry);
+        printTable(SP.HEADERS, strAry);
 
     }
 
     private static void CreateNewEmployee() {
-        Employee newEmployee = new Employee("", 0, 0, 0, false);
+        Employee newEmployee = new Employee("", 0, 0, false);
         System.out.println("===== Creat New Employee =====");
 
         System.out.printf("Enter Full Name > ");
@@ -361,9 +354,6 @@ public class Main {
 
         System.out.printf("Enter Mobile No. > ");
         newEmployee.setMobile_no(Long.parseLong(scanner.nextLine()));
-
-        System.out.printf("Enter Wage > ");
-        newEmployee.setWage(Double.parseDouble(scanner.nextLine()));
 
         System.out.printf("Enter Worked Hours > ");
         newEmployee.setWorkingHour(Integer.parseInt(scanner.nextLine()));
@@ -379,7 +369,7 @@ public class Main {
         System.out.println("==== New Employee Details ====");
         System.out.println("Full Name: " + newEmployee.getFull_Name());
         System.out.println("Mobile No.: " + newEmployee.getMobile_no());
-        System.out.println("Wage: " + newEmployee.getWage());
+        System.out.println("Wage: " + newEmployee.totalWage());
         System.out.println("Worked Hour: " + newEmployee.getWorkingHour());
         System.out.println("Is Student: " + newEmployee.isStudent());
 
@@ -406,14 +396,14 @@ public class Main {
         System.out.println("\t Your Total Wage : " + e.totalWage());
         System.out.println("\t Your Total Net Pay : " + e.netPay());
         System.out.println(totalWages());
-        System.out.println("\t Your Percentage of Wages : " + ((e.totalWage()*100)/totalWages())+"%");
+        System.out.println("\t Your Percentage of Wages : " + ((e.totalWage() * 100) / totalWages()) + "%");
         System.out.println("-------------------------------------------------------------------------------");
         System.out.printf("Do You have any complaint or issue ? Yes(Y) or No(N) > ");
         String input = scanner.nextLine();
         if (input.equals("Y") || input.equals("y") || input.equals("Yes")) {
             System.out.println("Please Enter Complaint > ");
             String complaint = scanner.nextLine();
-            System.out.println("Complaint Noted : "+complaint);
+            System.out.println("Complaint Noted : " + complaint);
         } else {
             System.out.println("Thank you");
             System.out.printf("Do You want to restart ? Yes(Y) or No(N) > ");
@@ -421,7 +411,7 @@ public class Main {
             if (input.equals("Y") || input.equals("y") || input.equals("Yes")) {
                 System.out.println("\t\t Thank You, Good Bye");
                 Home();
-            }else;
+            } else ;
 
         }
 
@@ -442,4 +432,136 @@ public class Main {
     private static void printTable(String[] header, String[][] data) {
         ASCIITable.getInstance().printTable(header, data);
     }
+}
+
+/**
+ * STATIC PROPERTIES CLASS
+ * */
+class SP {
+    static final String MANAGER_PASSWORD = "123";
+
+    static final String[] HEADERS = {"Employee ID", "Full Name", "Mobile No.", "Worked Hours", "Is Student", "Total Wage", "Tax Slot", "Tax Amount", "Net Pay"};
+
+    //=== Wage Slot Settings ===
+    static final int Wage_SLOT_80 = 80;
+    static final double Wage_FOR_80 = 9.5;
+    static final int Wage_SLOT_120 = 120;
+    static final double Wage_FOR_120 = 10.5;
+    static final int Wage_SLOT_200 = 200;
+    static final double Wage_FOR_200 = 11;
+    static final double Wage_FOR_OVER_200 = 13;
+
+
+    static final double wage_upto_80 = (Wage_SLOT_80) * Wage_FOR_80;
+    static final double wage_Upto_120 = (Wage_SLOT_120 - Wage_SLOT_80) * Wage_FOR_120;
+    static final double wage_Upto_200 = (Wage_SLOT_200 - Wage_SLOT_120 - Wage_SLOT_80) * Wage_FOR_200;
+
+    //=== Tax Slot Settings ===
+    static final int TAX_SLOT_12500 = 12500;
+    static final double TAX_FOR_12500 = 0.45;
+    static final int TAX_SLOT_4190 = 4190;
+    static final double TAX_FOR_4190 = 0.40;
+    static final int TAX_SLOT_1050 = 1050;
+    static final double TAX_FOR_1050 = 0.20;
+
+
+}
+
+class Employee {
+    private String Full_Name;
+    private long mobile_no;
+    private int workingHour;
+    private boolean isStudent;
+
+    public Employee(String full_Name, long mobile_no, int workingHour, boolean isStudent) {
+        Full_Name = full_Name;
+        this.mobile_no = mobile_no;
+        this.workingHour = workingHour;
+        this.isStudent = isStudent;
+    }
+
+    public String getFull_Name() {
+        return Full_Name;
+    }
+
+    public void setFull_Name(String full_Name) {
+        Full_Name = full_Name;
+    }
+
+    public long getMobile_no() {
+        return mobile_no;
+    }
+
+    public void setMobile_no(long mobile_no) {
+        this.mobile_no = mobile_no;
+    }
+
+    public int getWorkingHour() {
+        return workingHour;
+    }
+
+    public void setWorkingHour(int workingHour) {
+        this.workingHour = workingHour;
+    }
+
+    public boolean isStudent() {
+        return isStudent;
+    }
+
+    public void setStudent(boolean student) {
+        isStudent = student;
+    }
+
+    public double totalWage() {
+        double finalWage;
+        if (workingHour > SP.Wage_SLOT_200) {
+            finalWage = SP.wage_upto_80 + SP.wage_Upto_120 + SP.wage_Upto_200 + ((workingHour - SP.Wage_SLOT_80 - SP.Wage_SLOT_120 - SP.Wage_SLOT_200) * SP.Wage_FOR_OVER_200);
+        } else if (workingHour > SP.Wage_SLOT_120) {
+            finalWage = SP.wage_upto_80 + SP.wage_Upto_120 + ((workingHour - SP.Wage_SLOT_80 - SP.Wage_SLOT_120) * SP.Wage_FOR_200);
+        } else if (workingHour > SP.Wage_SLOT_80) {
+            finalWage = SP.wage_upto_80 + ((workingHour - SP.Wage_SLOT_80) * SP.Wage_FOR_120);
+        } else {
+            finalWage = workingHour * SP.Wage_FOR_80;
+        }
+        return finalWage;
+    }
+
+    public String taxSlot() {
+        if (isStudent) {
+            return "No Tax";
+        }
+        double totalWage = totalWage();
+        if (totalWage > SP.TAX_SLOT_12500) {
+            return "45%";
+        } else if (totalWage > SP.TAX_SLOT_4190) {
+            return "40%";
+        } else if (totalWage > SP.TAX_SLOT_1050) {
+            return "20%";
+        } else {
+            return "NIL";
+        }
+    }
+
+    public Double taxAmount() {
+        if (isStudent) {
+            return 0.0;
+        }
+        Double taxAmount;
+        double totalWage = totalWage();
+        if (totalWage > SP.TAX_SLOT_12500) {
+            taxAmount = totalWage * SP.TAX_FOR_12500;
+        } else if (totalWage > SP.TAX_SLOT_4190) {
+            taxAmount = totalWage * SP.TAX_FOR_4190;
+        } else if (totalWage > SP.TAX_SLOT_1050) {
+            taxAmount = totalWage * SP.TAX_FOR_1050;
+        } else {
+            taxAmount = 0.0;
+        }
+        return taxAmount;
+    }
+
+    public Double netPay() {
+        return totalWage() - taxAmount();
+    }
+
 }

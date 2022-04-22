@@ -7,6 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="btc-ascii-table-1.0" level="project" />
+    <orderEntry type="library" name="asciitable" level="project" />
   </component>
 </module>
